@@ -14,23 +14,22 @@ const socket = io(`http://localhost:3000`, {transports: ['websocket']})
 
 
 export default function App(){
-//   useEffect(()=>{
-//     socket.on('getToken', token=>{
-//       dispatch(setToken(token))
-//     })
-//     return ()=>{
-//       socket.disconnect()
-//     }
-// }, [])
+  const [token, setToken] = useState("")
+  useEffect(()=>{
+    socket.on('getToken', token=>{
+      setToken(token)
+    })
+    return ()=>{
+      socket.disconnect()
+    }
+}, [])
   const [isSignedId, setIsSignedId] = useState(false)
   return(
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Group navigationKey={isSignedId ? 'user' : 'guest'}>
+        <Stack.Navigator initialRouteName="Chat">
             <Stack.Screen name="Home" component={Register} />
             <Stack.Screen name="Login" component={Login} />
-          </Stack.Group>
-
+            <Stack.Screen name="Chat" component={Chat} />
         </Stack.Navigator>
       </NavigationContainer>
   )

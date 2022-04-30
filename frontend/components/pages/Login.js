@@ -1,14 +1,26 @@
-import React,{ useEffect } from 'react'
+import React,{ useEffect, useState } from 'react'
 import { NativeBaseProvider, Link, Center, Box, Stack, Heading, Text, FormControl, Input, Button } from 'native-base'
 import axios from 'axios'
 import {io} from 'socket.io-client'
 const socket = io(`http://localhost:3000`, {transports: ['websocket']})
 const Login = ({navigation}) => {
+    const [token, setToken] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const handleSignIn = () => {
+    const handleSignIn = async() => {
         try{
-
+            const res = await axios({
+                method: 'put',
+                url: `http://localhost:3000/api/v1/auth`,
+                headers:{
+                    Authorization: `Bearer ${token}`
+                },
+                data:{
+                    email: email,
+                    password: password
+                }
+            })
+            navigation.navigate('Chat')
         }catch(error){
             console.log(error)
         }

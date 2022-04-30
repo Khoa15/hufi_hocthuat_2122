@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Box, Input, Button, Text, Flex, HStack, Spacer} from 'native-base'
+import {Box, Input, Button, Text, Flex, HStack, Spacer, NativeBaseProvider} from 'native-base'
 import {io} from 'socket.io-client'
 
 const socket = io('http://localhost:3000/', {transports: ['websocket']})
@@ -18,6 +18,7 @@ export default function Chat(){
                 content: message,
                 id: id
             }
+            setMess([...mess, msg])
             socket.emit('sendDataClient', msg)
             setMessage('')
         }
@@ -46,14 +47,14 @@ export default function Chat(){
         }
     }, [])
     return(
-        <>
-        <Box alignSelf={'center'} w="75%" p="2" rounded={2} bg="primary.300" _text={{color: "white"}}>
-            {renderMess}
-        </Box>
-        <Box alignItems={'center'}>
-            <Input mx="3" placeholder='Aa' w="75%" onChange={handleChange} onKeyPress={onEnterPress} value={message}
-            InputRightElement={<Button onPress={sendMessage}>Send</Button>} />
-        </Box>
-        </>
+        <NativeBaseProvider>
+            <Box alignSelf={'center'} w="75%" p="2" rounded={2} bg="primary.300" _text={{color: "white"}}>
+                {renderMess}
+            </Box>
+            <Box alignItems={'center'}>
+                <Input mx="3" autoFocus placeholder='Aa' w="75%" onChange={handleChange} onKeyPress={onEnterPress} value={message}
+                InputRightElement={<Button onPress={sendMessage}>Send</Button>} />
+            </Box>
+        </NativeBaseProvider>
     )
 }

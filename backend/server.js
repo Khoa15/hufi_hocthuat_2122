@@ -59,6 +59,7 @@ app.get('/', (req, res)=>{
 })
 
 io.on('connection', (socket)=>{
+    socket.join(123)
     console.log(`A user connected ${socket.id} ${token}`)
 
     socket.emit("getId", socket.id)
@@ -66,7 +67,7 @@ io.on('connection', (socket)=>{
 
     socket.on("sendDataClient", (data)=>{
         console.log(data)
-        socket.emit("sendDataServer", {data})
+        socket.to(123).emit("sendDataServer", {data})
     })
 
     socket.on("disconnect", ()=>{

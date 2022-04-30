@@ -94,7 +94,7 @@ const Register = ({navigation}) =>{
                             { isIt[1] && <ErrorMessage /> }
                         </FormControl>
                         <Divider mb={4} />
-                        <FormControl mb={3}>
+                        {/* <FormControl mb={3}>
                             <FormControl.Label>Địa chỉ:</FormControl.Label>
                             <Input />
                         </FormControl>
@@ -105,7 +105,7 @@ const Register = ({navigation}) =>{
                         <FormControl mb={3}>
                             <FormControl.Label>Chụp Ảnh CCCD/CMND:</FormControl.Label>
                             <Input />
-                        </FormControl>
+                        </FormControl> */}
                         <Divider mb={4} />
                         <FormControl mb={3}isInvalid={isIt[5]}>
                             <FormControl.Label isRequired >Email:</FormControl.Label>
